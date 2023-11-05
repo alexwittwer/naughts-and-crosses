@@ -8,7 +8,7 @@ const gameBoard = (() => {
     for (let i = 0; i < rows; i++) {
       board[i] = [];
       for (let j = 0; j < columns; j++) {
-        board[i].push(" ");
+        board[i].push("");
       }
     }
   }
@@ -26,7 +26,7 @@ const gameBoard = (() => {
     const y = coords[1];
 
     // check for valid input
-    if (x < 0 || x > 3 || y < 0 || y > 3) {
+    if (x < 0 || x > 2 || y < 0 || y > 2) {
       alert("Error, out of bounds");
       return;
     } else if (!board[x][y]) {
@@ -88,25 +88,32 @@ const game = (() => {
   }
 
   function checkTie() {
+    let setFlag = true;
     for (let i = 0; i < 3; i++) {
       //loop for each, return false if it doesn't contain a marker
       for (let j = 0; j < 3; j++) {
-        if (board[i][j] === " ") return true;
+        if (board[i][j] === "") {
+          setFlag = false;
+        }
       }
     }
-    return false;
+
+    return setFlag;
   }
 
   function playRound() {
     const player_marker = "x";
 
-    while (!checkWin("x") && !checkTie()) {
+    while (!checkWin("x")) {
       let userinput_x = prompt("Enter coordinate x");
       let userinput_y = prompt("Enter coordinate y");
       let user_coord = [userinput_x, userinput_y];
 
       gameBoard.setToken(user_coord, player_marker);
-      console.log(gameBoard.displayBoard());
+      if (checkTie()) {
+        alert("Its a tie!");
+      }
+      console.table(gameBoard.displayBoard());
     }
   }
   return { checkWin, playRound, checkTie };
