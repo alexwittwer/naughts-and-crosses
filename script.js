@@ -21,7 +21,6 @@ const gameBoard = (function () {
   // sets token based on coordinates
   // expects array
   function setToken(coords, marker) {
-
     // change coords to x, y
     const x = coords[0];
     const y = coords[1];
@@ -30,7 +29,6 @@ const gameBoard = (function () {
     if (x < 0 || x > 3 || y < 0 || y > 3) {
       alert("Error, out of bounds");
       return;
-      if (typeof x)
     } else if (!board[x][y]) {
       board[x][y] = marker;
       return board;
@@ -42,40 +40,51 @@ const gameBoard = (function () {
   return { displayBoard, setToken, resetBoard };
 })();
 
-const game = (function() {
-    const gBoard = gameBoard.displayBoard();
+const game = (function () {
+  const board = gameBoard.displayBoard();
+  const winCombinations = [
+    [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+    ],
+    [
+      [1, 0],
+      [1, 1],
+      [1, 2],
+    ],
+    [
+      [2, 0],
+      [2, 1],
+      [2, 2],
+    ],
+    [
+      [0, 0],
+      [1, 1],
+      [2, 2],
+    ],
+    [
+      [2, 0],
+      [1, 1],
+      [0, 2],
+    ],
+    [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+    ],
+    [
+      [0, 1],
+      [1, 1],
+      [2, 1],
+    ],
+    [
+      [0, 2],
+      [1, 2],
+      [2, 2],
+    ],
+  ];
 
-    function checkWin(gBoard, token){
-
-        // win patterns:
-        // [0, 0] [0, 1] [0, 2] first row
-        // [1, 0] [1, 1] [1, 2] second row
-        // [2, 0] [2, 1] [2, 2] third row
-
-        // [0, 0] [1, 1] [2, 2] diagonal down
-        // [2, 0] [1, 1] [0, 2] diagonal up
-
-        // [0, 0] [1, 0] [2, 0] first column
-        // [0, 1] [1, 1] [2, 1] second column
-        // [0, 2] [1, 2] [2, 2] third column
-
-        const winCon = (function () {
-            let x = "x";
-            let y = "y";
-            let conditions = [
-            ([0, 0] [0, 1] [0, 2]), 
-            ([1, 0] [1, 1] [1, 2]), 
-            ([2, 0] [2, 1] [2, 2]), 
-            ([0, 0] [1, 1] [2, 2]), 
-            ([2, 0] [1, 1] [0, 2]), 
-            ([0, 0] [1, 0] [2, 0]),
-            ([0, 1] [1, 1] [2, 1]),
-            ([0, 2] [1, 2] [2, 2])
-        ]
-
-        })();
-
-        if 
-
-    }
+  function checkWin(marker) {}
+  return { checkWin };
 })();
