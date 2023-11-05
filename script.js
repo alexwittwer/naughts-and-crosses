@@ -90,6 +90,16 @@ const game = (() => {
     return false;
   }
 
+  function checkValid(coords) {
+    let [x, y] = coords;
+    let board = gameBoard.displayBoard();
+
+    if (board[x][y]) {
+      return false;
+    }
+    return true;
+  }
+
   function checkTie() {
     let setFlag = true;
     for (let i = 0; i < 3; i++) {
