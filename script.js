@@ -143,3 +143,19 @@ const computer = (() => {
   }
   return { setCPUToken };
 })();
+
+function createPlayer(name) {
+  function setMarker() {
+    let marker;
+    while (true) {
+      marker = prompt(`${name}, please choose 'x' or 'o'`);
+      if (/^[xo]$/i.test(marker)) {
+        return { name, marker };
+      } else {
+        alert("Invalid input. Please choose 'x' or 'o'.");
+      }
+    }
+  }
+
+  return setMarker();
+}
