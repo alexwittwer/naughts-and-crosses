@@ -114,9 +114,7 @@ const game = (() => {
     return setFlag;
   }
 
-  function playRound() {
-    const player_marker = "x";
-
+  function playRound(player_marker) {
     while (!checkWin("x")) {
       let userinput = prompt("Enter coordinate x, y");
       let user_coord = userinput.split(",");
