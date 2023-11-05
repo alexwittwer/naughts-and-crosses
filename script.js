@@ -66,6 +66,7 @@ const game = (() => {
         board[1][y] === marker &&
         board[2][y] === marker
       ) {
+        alert(`${marker} wins`);
         return true;
       }
     }
@@ -76,6 +77,7 @@ const game = (() => {
       board[1][1] === marker &&
       board[2][2] === marker
     ) {
+      alert(`${marker} wins`);
       return true;
     }
 
@@ -84,6 +86,7 @@ const game = (() => {
       board[1][1] === marker &&
       board[2][0] === marker
     ) {
+      alert(`${marker} wins`);
       return true;
     }
 
