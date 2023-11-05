@@ -54,6 +54,7 @@ const game = (() => {
         board[x][1] === marker &&
         board[x][2] === marker
       ) {
+        alert(`${marker} wins`);
         return true;
       }
     }
