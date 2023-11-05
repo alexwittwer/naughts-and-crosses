@@ -42,49 +42,49 @@ const gameBoard = (function () {
 
 const game = (function () {
   const board = gameBoard.displayBoard();
-  const winCombinations = [
-    [
-      [0, 0],
-      [0, 1],
-      [0, 2],
-    ],
-    [
-      [1, 0],
-      [1, 1],
-      [1, 2],
-    ],
-    [
-      [2, 0],
-      [2, 1],
-      [2, 2],
-    ],
-    [
-      [0, 0],
-      [1, 1],
-      [2, 2],
-    ],
-    [
-      [2, 0],
-      [1, 1],
-      [0, 2],
-    ],
-    [
-      [0, 0],
-      [1, 0],
-      [2, 0],
-    ],
-    [
-      [0, 1],
-      [1, 1],
-      [2, 1],
-    ],
-    [
-      [0, 2],
-      [1, 2],
-      [2, 2],
-    ],
-  ];
 
-  function checkWin(marker) {}
+  function checkWin(marker) {
+    // check rows
+    for (let x = 0; x < 3; x++) {
+      if (
+        board[x][0] === marker &&
+        board[x][1] === marker &&
+        board[x][2] === marker
+      ) {
+        return true;
+      }
+    }
+
+    // check columns
+    for (let y = 0; y < 3; y++) {
+      if (
+        board[0][y] === marker &&
+        board[1][y] === marker &&
+        board[2][y] === marker
+      ) {
+        return true;
+      }
+    }
+
+    // check diagonals
+    if (
+      board[0][0] === marker &&
+      board[1][1] === marker &&
+      board[2][2] === marker
+    ) {
+      return true;
+    }
+
+    if (
+      board[0][2] === marker &&
+      board[1][1] === marker &&
+      board[2][0] === marker
+    ) {
+      return true;
+    }
+
+    //exits if no win conditions met
+    return false;
+  }
   return { checkWin };
 })();
