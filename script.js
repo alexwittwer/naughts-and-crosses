@@ -118,16 +118,30 @@ const game = (() => {
     const player_marker = "x";
 
     while (!checkWin("x")) {
-      let userinput_x = prompt("Enter coordinate x");
-      let userinput_y = prompt("Enter coordinate y");
-      let user_coord = [userinput_x, userinput_y];
+      let userinput = prompt("Enter coordinate x, y");
+      let user_coord = userinput.split(",");
 
       gameBoard.setToken(user_coord, player_marker);
       if (checkTie()) {
         alert("Its a tie!");
       }
+      computer.setCPUToken();
       console.table(gameBoard.displayBoard());
     }
   }
-  return { checkWin, playRound, checkTie };
+  return { checkWin, playRound, checkTie, checkValid };
+})();
+
+const computer = (() => {
+  function setCPUToken() {
+    const comp_x = Math.floor(Math.random() * 3);
+    const comp_y = Math.floor(Math.random() * 3);
+    comp_coords = [comp_x, comp_y];
+    console.log(comp_coords);
+
+    if (game.checkValid(comp_coords)) {
+      gameBoard.setToken(comp_coords, "o");
+    } else setCPUToken();
+  }
+  return { setCPUToken };
 })();
