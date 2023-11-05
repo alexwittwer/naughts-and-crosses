@@ -1,4 +1,4 @@
-const gameBoard = (function () {
+const gameBoard = (() => {
   const rows = 3;
   const columns = 3;
   const board = [];
@@ -8,7 +8,7 @@ const gameBoard = (function () {
     for (let i = 0; i < rows; i++) {
       board[i] = [];
       for (let j = 0; j < columns; j++) {
-        board[i].push("");
+        board[i].push(" ");
       }
     }
   }
@@ -40,7 +40,7 @@ const gameBoard = (function () {
   return { displayBoard, setToken, resetBoard };
 })();
 
-const game = (function () {
+const game = (() => {
   const board = gameBoard.displayBoard();
 
   function checkWin(marker) {
@@ -86,5 +86,28 @@ const game = (function () {
     //exits if no win conditions met
     return false;
   }
-  return { checkWin };
+
+  function checkTie() {
+    for (let i = 0; i < 3; i++) {
+      //loop for each, return false if it doesn't contain a marker
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] === " ") return true;
+      }
+    }
+    return false;
+  }
+
+  function playRound() {
+    const player_marker = "x";
+
+    while (!checkWin("x") && !checkTie()) {
+      let userinput_x = prompt("Enter coordinate x");
+      let userinput_y = prompt("Enter coordinate y");
+      let user_coord = [userinput_x, userinput_y];
+
+      gameBoard.setToken(user_coord, player_marker);
+      console.log(gameBoard.displayBoard());
+    }
+  }
+  return { checkWin, playRound, checkTie };
 })();
