@@ -120,15 +120,24 @@ const game = (() => {
 
   function playRound(player_marker) {
     while (!checkWin("x")) {
-      let userinput = prompt("Enter coordinate x, y");
-      let user_coord = userinput.split(",");
+      if (player_marker === "o") {
+        computer.setCPUToken();
+        console.table(gameBoard.displayBoard());
+        let userinput = prompt("Enter coordinate x, y");
+        let user_coord = userinput.split(",");
+        gameBoard.setToken(user_coord, player_marker);
+      } else {
+        console.table(gameBoard.displayBoard());
+        let userinput = prompt("Enter coordinate x, y");
+        let user_coord = userinput.split(",");
+        gameBoard.setToken(user_coord, player_marker);
+        computer.setCPUToken();
+      }
 
-      gameBoard.setToken(user_coord, player_marker);
       if (checkTie()) {
         alert("Its a tie!");
+        break;
       }
-      computer.setCPUToken();
-      console.table(gameBoard.displayBoard());
     }
   }
   return { checkWin, playRound, checkTie, checkValid };
