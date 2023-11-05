@@ -28,13 +28,13 @@ const gameBoard = (() => {
     // check for valid input
     if (x < 0 || x > 2 || y < 0 || y > 2) {
       alert("Error, out of bounds");
-      return;
+      return false;
     } else if (!board[x][y]) {
       board[x][y] = marker;
       return board;
     } else {
       console.log("Error: token in place");
-      return "err";
+      return false;
     }
   }
 
