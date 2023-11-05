@@ -32,7 +32,10 @@ const gameBoard = (() => {
     } else if (!board[x][y]) {
       board[x][y] = marker;
       return board;
-    } else console.log("Error: token in place");
+    } else {
+      console.log("Error: token in place");
+      return "err";
+    }
   }
 
   resetBoard(); // resets board for initialization.
