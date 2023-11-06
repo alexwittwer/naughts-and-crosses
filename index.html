@@ -12,8 +12,37 @@
     />
   </head>
   <body>
-    <div class="modal"></div>
+    <div class="hidden overlay"></div>
     <div class="container">
+      <div class="modal">
+        <div class="modal-content">
+          <div class="flex">
+            <p>Create players</p>
+            <button id="close-btn">X</button>
+          </div>
+          <form action="">
+            <label for="mname1" class="mname-label"
+              ><input
+                required
+                type="text"
+                name="mname"
+                id="mname1"
+                class="mname"
+              />Player 1</label
+            >
+            <label for="mname2" class="mname-label"
+              ><input
+                required
+                type="text"
+                name="mname"
+                id="mname2"
+                class="mname"
+              />Player 2</label
+            >
+            <button class="play-btn btn" id="play-game-btn">Play!</button>
+          </form>
+        </div>
+      </div>
       <header>
         <div class="title">
           <h1 class="naughts">Naughts</h1>
@@ -35,7 +64,8 @@
             <div class="grid-item9"></div>
           </div>
           <div class="controls-container">
-            <button class="reset-btn">Reset</button>
+            <button class="reset-btn btn">Reset</button>
+            <button class="new-game-btn btn">New Game</button>
           </div>
         </div>
       </section>

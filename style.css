@@ -51,6 +51,8 @@
 
 /* --------------------- Modal --------------------- */
 
+/* Modal elements */
+/**/
 .modal {
   display: flex;
   flex-direction: column;
@@ -63,6 +65,78 @@
   left: 50%;
   transform: translate(-50%, -50%);
   animation: slide-from-top ease-in-out 0.3s;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: var(--c5);
+  color: var(--c1a);
+  margin: 1% auto;
+  padding: 20px;
+  max-width: 20rem;
+  border-radius: 10% 0% 10% 10%;
+  gap: 1rem;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+.modal-content form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+form input,
+form label {
+  margin-bottom: 3px;
+  margin-right: 10px;
+  padding: 0.4rem;
+  border-radius: 5%;
+  border-style: none;
+  align-self: flex-start;
+}
+
+form #mbtn {
+  margin: 1rem;
+}
+
+/* Close button */
+#close-btn {
+  color: #fdfdfd;
+  background-color: var(--c3);
+  border-style: none;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  align-self: flex-end;
+}
+
+#close-btn:hover,
+#close-btn:focus {
+  color: #c26733;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
 }
 
 /* --------------------- Game Container --------------------- */
@@ -103,10 +177,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
   margin: 2rem;
 }
 
-.controls-container button {
+button {
   background-color: var(--c5);
   border-style: none;
   font-size: larger;
@@ -115,11 +190,11 @@
   transition: 0.2s;
 }
 
-.controls-container button:hover {
+button:hover {
   background-color: var(--c2);
 }
 
-.controls-container button:active {
+button:active {
   scale: 0.98;
   box-shadow: none;
   transition: 0.2s;
@@ -183,6 +258,15 @@ footer {
 }
 
 /* --------------------- Animations --------------------- */
+
+@keyframes slide-from-top {
+  from {
+    margin-top: -100%;
+  }
+  to {
+    margin-top: 0%;
+  }
+}
 
 @keyframes scale-in {
   0% {
