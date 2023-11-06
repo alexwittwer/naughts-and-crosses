@@ -138,15 +138,13 @@ const game = (() => {
         let userinput = prompt("Enter coordinate x, y");
         let user_coord = userinput.split(",");
         game.setToken(user_coord, player1_marker);
-        gameDOM.clearBoard();
-        gameDOM.populateBoard();
+        gameDOM.reset();
       } else {
         let userinput = prompt("Enter coordinate x, y");
         let user_coord = userinput.split(",");
         game.setToken(user_coord, player1_marker);
         setCPUToken();
-        gameDOM.clearBoard();
-        gameDOM.populateBoard();
+        gameDOM.reset();
       }
 
       if (checkTie()) {
@@ -220,13 +218,12 @@ const gameDOM = (() => {
     }
   }
   function reset() {
-    populateBoard();
     clearBoard();
+    populateBoard();
   }
-  return { populateBoard, clearBoard };
+  return { reset };
 })();
 
-gameDOM.clearBoard();
-gameDOM.populateBoard();
+gameDOM.reset();
 
 const player1 = createPlayer("alex");
