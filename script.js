@@ -172,3 +172,11 @@ function createPlayer(name) {
 
   return setMarker();
 }
+
+const gameDOM = (() => {
+  // Element pointers
+  const grid = document.querySelector(".grid-container");
+  const reset = document.querySelector(".reset-btn");
+  const modal = document.querySelector(".modal");
+  // DOM manipulation handlers
+})();
