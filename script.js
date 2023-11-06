@@ -189,7 +189,12 @@ function createPlayer(name, marker) {
 const gameDOM = (() => {
   // Element pointers
   const resetbtn = document.querySelector(".reset-btn");
-  const modal = document.querySelector(".modal");
+  const newgame = document.querySelector(".new-game-btn");
+
+  newgame.addEventListener("click", (e) => {
+    gameBoard.resetBoard();
+    fullReset();
+  });
 
   resetbtn.addEventListener("click", (e) => {
     gameBoard.resetBoard();
@@ -239,7 +244,47 @@ const gameDOM = (() => {
     clearBoard();
     populateBoard();
   }
-  return { reset };
+
+  function fullReset() {
+    reset();
+    modal.openMdl();
+  }
+
+  //
+  // -------- Modal handling -------- //
+  //
+
+  const modal = (() => {
+    const closeModal = document.querySelector("#close-btn");
+    const modalForm = document.querySelector(".modal");
+    const play = document.querySelector(".#play-game-btn");
+    const overlay = document.querySelector(".overlay");
+
+    closeModal.addEventListener("click", () => {
+      closeMdl();
+    });
+
+    play.addEventListener("click", (e) => {
+      e.preventDefault();
+      game.init();
+    });
+
+    //close modal
+    function closeMdl() {
+      modalForm.classList.add("hidden");
+      overlay.classList.add("hidden");
+    }
+
+    //open modal
+    function openMdl() {
+      modalForm.classList.remove("hidden");
+      overlay.classList.remove("hidden");
+    }
+
+    return { openMdl };
+  })();
+
+  return { reset, fullReset };
 })();
 
 gameDOM.reset();
