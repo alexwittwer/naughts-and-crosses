@@ -191,20 +191,29 @@ const gameDOM = (() => {
   const resetbtn = document.querySelector(".reset-btn");
   const newgame = document.querySelector(".new-game-btn");
 
+  // Modal Pointers
+  const closeModal = document.querySelector("#close-btn");
+  const modalForm = document.querySelector(".modal");
+  const play = document.querySelector("#play-game-btn");
+  const overlay = document.querySelector(".overlay");
+  const p1 = document.querySelector("#mname1");
+  const p2 = document.querySelector("#mname2");
+
+  // New Game button handler
   newgame.addEventListener("click", (e) => {
     gameBoard.resetBoard();
     fullReset();
   });
 
+  // Reset button handler
   resetbtn.addEventListener("click", (e) => {
     gameBoard.resetBoard();
     reset();
   });
 
-  // clears grid
+  // clears grid from grid-container
   function clearBoard() {
     const grid = document.querySelector(".grid-container");
-
     while (grid.firstChild) {
       grid.removeChild(grid.firstChild);
     }
@@ -245,22 +254,13 @@ const gameDOM = (() => {
     populateBoard();
   }
 
+  // full reset and opens modal for new game initialization
   function fullReset() {
     reset();
     openMdl();
   }
 
-  //
-  // -------- Modal handling -------- //
-  //
-
-  const closeModal = document.querySelector("#close-btn");
-  const modalForm = document.querySelector(".modal");
-  const play = document.querySelector("#play-game-btn");
-  const overlay = document.querySelector(".overlay");
-  const p1 = document.querySelector("#mname1");
-  const p2 = document.querySelector("#mname2");
-
+  // modal handling
   let player1;
   let player2;
 
