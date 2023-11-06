@@ -131,7 +131,6 @@ footer {
   }
 
   100% {
-    margin-right: 100%
     display: block;
     transform: scale(1);
     opacity: 100%;
