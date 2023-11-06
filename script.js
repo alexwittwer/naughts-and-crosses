@@ -118,12 +118,23 @@ const game = (() => {
     return setFlag;
   }
 
+  function setCPUToken() {
+    const comp_x = Math.floor(Math.random() * 3);
+    const comp_y = Math.floor(Math.random() * 3);
+    comp_coords = [comp_x, comp_y];
+    console.log(comp_coords);
+
+    if (game.checkValid(comp_coords)) {
+      game.setToken(comp_coords, "o");
+    } else setCPUToken();
+  }
+
   function playRound(player1) {
     const player1_marker = player1.marker;
 
     while (!checkWin("x")) {
       if (player1_marker === "o") {
-        computer.setCPUToken();
+        setCPUToken();
         let userinput = prompt("Enter coordinate x, y");
         let user_coord = userinput.split(",");
         game.setToken(user_coord, player1_marker);
@@ -133,7 +144,7 @@ const game = (() => {
         let userinput = prompt("Enter coordinate x, y");
         let user_coord = userinput.split(",");
         game.setToken(user_coord, player1_marker);
-        computer.setCPUToken();
+        setCPUToken();
         gameDOM.clearBoard();
         gameDOM.populateBoard();
       }
@@ -145,20 +156,6 @@ const game = (() => {
     }
   }
   return { checkWin, playRound, checkValid, setToken };
-})();
-
-const computer = (() => {
-  function setCPUToken() {
-    const comp_x = Math.floor(Math.random() * 3);
-    const comp_y = Math.floor(Math.random() * 3);
-    comp_coords = [comp_x, comp_y];
-    console.log(comp_coords);
-
-    if (game.checkValid(comp_coords)) {
-      game.setToken(comp_coords, "o");
-    } else setCPUToken();
-  }
-  return { setCPUToken };
 })();
 
 function createPlayer(name) {
