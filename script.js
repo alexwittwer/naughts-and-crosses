@@ -18,6 +18,14 @@ const gameBoard = (() => {
     return board;
   }
 
+  resetBoard(); // resets board for initialization.
+
+  return { displayBoard, resetBoard };
+})();
+
+const game = (() => {
+  const board = gameBoard.displayBoard();
+
   // sets token based on coordinates
   // expects array
   function setToken(coords, marker) {
@@ -37,14 +45,6 @@ const gameBoard = (() => {
       return false;
     }
   }
-
-  resetBoard(); // resets board for initialization.
-
-  return { displayBoard, setToken, resetBoard };
-})();
-
-const game = (() => {
-  const board = gameBoard.displayBoard();
 
   function checkWin(marker) {
     // check rows
@@ -140,7 +140,7 @@ const game = (() => {
       }
     }
   }
-  return { checkWin, playRound, checkTie, checkValid };
+  return { checkWin, playRound, checkValid, setToken };
 })();
 
 const computer = (() => {
@@ -151,7 +151,7 @@ const computer = (() => {
     console.log(comp_coords);
 
     if (game.checkValid(comp_coords)) {
-      gameBoard.setToken(comp_coords, "o");
+      game.setToken(comp_coords, "o");
     } else setCPUToken();
   }
   return { setCPUToken };
