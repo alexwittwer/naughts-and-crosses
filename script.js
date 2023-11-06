@@ -118,20 +118,24 @@ const game = (() => {
     return setFlag;
   }
 
-  function playRound(player_marker) {
+  function playRound(player1) {
+    const player1_marker = player1.marker;
+
     while (!checkWin("x")) {
-      if (player_marker === "o") {
+      if (player1_marker === "o") {
         computer.setCPUToken();
-        console.table(gameBoard.displayBoard());
         let userinput = prompt("Enter coordinate x, y");
         let user_coord = userinput.split(",");
-        gameBoard.setToken(user_coord, player_marker);
+        game.setToken(user_coord, player1_marker);
+        gameDOM.clearBoard();
+        gameDOM.populateBoard();
       } else {
-        console.table(gameBoard.displayBoard());
         let userinput = prompt("Enter coordinate x, y");
         let user_coord = userinput.split(",");
-        gameBoard.setToken(user_coord, player_marker);
+        game.setToken(user_coord, player1_marker);
         computer.setCPUToken();
+        gameDOM.clearBoard();
+        gameDOM.populateBoard();
       }
 
       if (checkTie()) {
