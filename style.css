@@ -46,30 +46,47 @@
   animation: scale-in-right 1.5s ease-in-out 0s alternate;
 }
 
-
 /* --------------------- Game Container --------------------- */
 
 .game-container {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    margin: 4rem;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem;
 }
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 1rem;
-    width: 480px;
-    height: 480px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  width: 480px;
+  height: 480px;
 }
 
 .grid-container div {
-    background-color: var(--c6);
+  background-color: var(--c6);
 }
 
 .grid-container div:hover {
-    background-color: var(--c7);
+  background-color: var(--c7);
+}
+
+/* --------------------- Footer --------------------- */
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 10px;
+  grid-row: 3/4;
+}
+
+#github-icon {
+  height: 2rem;
+}
+
+#github-link:hover {
+  transform: scale(1.2);
 }
 
 /* --------------------- Animations --------------------- */
