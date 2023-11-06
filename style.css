@@ -74,13 +74,41 @@
   background-color: var(--c7);
 }
 
+/* --------------------- Controls container --------------------- */
+
+.controls-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+}
+
+.controls-container button {
+  background-color: var(--c5);
+  border-style: none;
+  font-size: larger;
+  padding: 0.5rem;
+  box-shadow: 4px 4px 0px 0px rgba(85, 85, 85, 0.637);
+  transition: 0.2s;
+}
+
+.controls-container button:hover {
+  background-color: var(--c2);
+}
+
+.controls-container button:active {
+  scale: 0.98;
+  box-shadow: none;
+  transition: 0.2s;
+  transform: translate(5px, 5px);
+}
 /* --------------------- Footer --------------------- */
 
 footer {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 10px;
+  padding: 40px;
   grid-row: 3/4;
 }
 
