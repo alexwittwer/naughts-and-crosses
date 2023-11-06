@@ -34,8 +34,6 @@ const gameBoard = (() => {
 const game = (() => {
   const board = gameBoard.displayBoard();
 
-  function init() {}
-
   // sets token based on coordinates
   // expects array
   function setToken(coords, marker) {
