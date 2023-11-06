@@ -179,8 +179,55 @@ function createPlayer(name) {
 
 const gameDOM = (() => {
   // Element pointers
-  const grid = document.querySelector(".grid-container");
   const reset = document.querySelector(".reset-btn");
   const modal = document.querySelector(".modal");
-  // DOM manipulation handlers
+
+  reset.addEventListener("click", (e) => {
+    gameBoard.resetBoard();
+    gameDOM.clearBoard();
+    gameDOM.populateBoard();
+  });
+
+  // clears grid
+  function clearBoard() {
+    const grid = document.querySelector(".grid-container");
+
+    while (grid.firstChild) {
+      grid.removeChild(grid.firstChild);
+    }
+  }
+
+  // updates grid with current board
+  function populateBoard() {
+    const board = gameBoard.displayBoard();
+
+    for (let i = 0; i < 3; i++) {
+      const grid = document.querySelector(".grid-container");
+      for (let j = 0; j < 3; j++) {
+        const grid_element = document.createElement("div");
+        grid_element.classList.add("grid-item");
+        grid_element.addEventListener("click", (e) => {
+          const coords = [i, j];
+          game.setToken(coords, player1.marker);
+          gameDOM.clearBoard();
+          gameDOM.populateBoard();
+        });
+
+        if (board[i][j] === "x") {
+          grid_element.innerHTML = '<img src="icons/cancel-svgrepo-com.svg">';
+        } else if (board[i][j] === "o") {
+          grid_element.innerHTML = '<img src="icons/circle-svgrepo-com.svg">';
+        } else {
+          grid_element.textContent = board[i][j];
+        }
+        grid.appendChild(grid_element);
+      }
+    }
+  }
+  return { populateBoard, clearBoard };
 })();
+
+gameDOM.clearBoard();
+gameDOM.populateBoard();
+
+const player1 = createPlayer("alex");

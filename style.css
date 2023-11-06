@@ -84,6 +84,13 @@
 
 .grid-container div {
   background-color: var(--c6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-item img {
+  max-width: 50px;
 }
 
 .grid-container div:hover {
