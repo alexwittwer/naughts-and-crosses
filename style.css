@@ -133,7 +133,46 @@ footer {
 }
 
 #github-link:hover {
-  transform: scale(1.2);
+  transition: 0.4s;
+  transform: rotate(360deg) scale(1.5);
+}
+
+/* --------------------- Media Query --------------------- */
+
+@media screen and (max-width: 480px) {
+  .naughts {
+    font-size: 2rem;
+    color: var(--c5);
+    animation: scale-in-left 1s ease-in-out 0s alternate;
+  }
+
+  .and {
+    font-size: 2rem;
+    color: var(--c3);
+    animation: scale-in 3s ease-in 0s alternate;
+  }
+
+  .crosses {
+    font-size: 2rem;
+    color: var(--c4);
+    animation: scale-in-right 1.5s ease-in-out 0s alternate;
+  }
+
+  .game-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+    width: 240px;
+    height: 240px;
+  }
 }
 
 /* --------------------- Animations --------------------- */
