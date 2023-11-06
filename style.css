@@ -49,6 +49,22 @@
   animation: scale-in-right 1.5s ease-in-out 0s alternate;
 }
 
+/* --------------------- Modal --------------------- */
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+  border-radius: 15px;
+  /* this is a nice pattern to remember */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: slide-from-top ease-in-out 0.3s;
+}
+
 /* --------------------- Game Container --------------------- */
 
 .game-container {
