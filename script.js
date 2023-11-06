@@ -176,13 +176,12 @@ function createPlayer(name) {
 
 const gameDOM = (() => {
   // Element pointers
-  const reset = document.querySelector(".reset-btn");
+  const resetbtn = document.querySelector(".reset-btn");
   const modal = document.querySelector(".modal");
 
-  reset.addEventListener("click", (e) => {
+  resetbtn.addEventListener("click", (e) => {
     gameBoard.resetBoard();
-    gameDOM.clearBoard();
-    gameDOM.populateBoard();
+    reset();
   });
 
   // clears grid
@@ -206,8 +205,7 @@ const gameDOM = (() => {
         grid_element.addEventListener("click", (e) => {
           const coords = [i, j];
           game.setToken(coords, player1.marker);
-          gameDOM.clearBoard();
-          gameDOM.populateBoard();
+          reset();
         });
 
         if (board[i][j] === "x") {
@@ -220,6 +218,10 @@ const gameDOM = (() => {
         grid.appendChild(grid_element);
       }
     }
+  }
+  function reset() {
+    populateBoard();
+    clearBoard();
   }
   return { populateBoard, clearBoard };
 })();
