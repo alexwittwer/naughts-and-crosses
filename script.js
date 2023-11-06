@@ -1,3 +1,7 @@
+//
+// ---------- Game Board Object ------------ //
+//
+
 const gameBoard = (() => {
   const rows = 3;
   const columns = 3;
@@ -23,6 +27,10 @@ const gameBoard = (() => {
   return { displayBoard, resetBoard };
 })();
 
+//
+// ---------- Game Logic Object ------------ //
+//
+
 const game = (() => {
   const board = gameBoard.displayBoard();
 
@@ -46,7 +54,8 @@ const game = (() => {
     }
   }
 
-  function checkWin(marker) {
+  // checks to see if a marker has been placed in the win conditions
+  function initCheckWin(marker) {
     // check rows
     for (let x = 0; x < 3; x++) {
       if (
@@ -94,6 +103,12 @@ const game = (() => {
     return false;
   }
 
+  // simplifies checkWin for both markers.
+  function checkWin() {
+    initCheckWin("x");
+    initCheckWin("o");
+  }
+
   function checkValid(coords) {
     let [x, y] = coords;
     let board = gameBoard.displayBoard();
@@ -104,6 +119,7 @@ const game = (() => {
     return true;
   }
 
+  //checks if all elements have a marker, then stops the game
   function checkTie() {
     let setFlag = true;
     for (let i = 0; i < 3; i++) {
@@ -118,17 +134,19 @@ const game = (() => {
     return setFlag;
   }
 
+  // sets the CPU token randomly
   function setCPUToken() {
     const comp_x = Math.floor(Math.random() * 3);
     const comp_y = Math.floor(Math.random() * 3);
     comp_coords = [comp_x, comp_y];
     console.log(comp_coords);
 
-    if (game.checkValid(comp_coords)) {
+    if (checkValid(comp_coords)) {
       game.setToken(comp_coords, "o");
     } else setCPUToken();
   }
 
+  // main game logic
   function playRound(player1) {
     const player1_marker = player1.marker;
 
@@ -153,8 +171,12 @@ const game = (() => {
       }
     }
   }
-  return { checkWin, playRound, checkValid, setToken };
+  return { playRound, setToken };
 })();
+
+//
+// ---------- Player Object ------------ //
+//
 
 function createPlayer(name) {
   function setMarker() {
@@ -171,6 +193,10 @@ function createPlayer(name) {
 
   return setMarker();
 }
+
+//
+// ---------- DOM Handling Object ------------ //
+//
 
 const gameDOM = (() => {
   // Element pointers
@@ -201,11 +227,13 @@ const gameDOM = (() => {
         const grid_element = document.createElement("div");
         grid_element.classList.add("grid-item");
         grid_element.addEventListener("click", (e) => {
+          // adds a unique event listener to each grid item
           const coords = [i, j];
           game.setToken(coords, player1.marker);
           reset();
         });
 
+        // checks to see if game logic board has a value, then places an icon in that grid item
         if (board[i][j] === "x") {
           grid_element.innerHTML = '<img src="icons/cancel-svgrepo-com.svg">';
         } else if (board[i][j] === "o") {
@@ -217,6 +245,8 @@ const gameDOM = (() => {
       }
     }
   }
+
+  // quick reset function
   function reset() {
     clearBoard();
     populateBoard();
