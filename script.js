@@ -34,6 +34,8 @@ const gameBoard = (() => {
 const game = (() => {
   const board = gameBoard.displayBoard();
 
+  function init() {}
+
   // sets token based on coordinates
   // expects array
   function setToken(coords, marker) {
@@ -247,46 +249,50 @@ const gameDOM = (() => {
 
   function fullReset() {
     reset();
-    modal.openMdl();
+    openMdl();
   }
 
   //
   // -------- Modal handling -------- //
   //
 
-  const modal = (() => {
-    const closeModal = document.querySelector("#close-btn");
-    const modalForm = document.querySelector(".modal");
-    const play = document.querySelector(".#play-game-btn");
-    const overlay = document.querySelector(".overlay");
+  const closeModal = document.querySelector("#close-btn");
+  const modalForm = document.querySelector(".modal");
+  const play = document.querySelector("#play-game-btn");
+  const overlay = document.querySelector(".overlay");
+  const p1 = document.querySelector("#mname1");
+  const p2 = document.querySelector("#mname2");
 
-    closeModal.addEventListener("click", () => {
-      closeMdl();
-    });
+  let player1;
+  let player2;
 
-    play.addEventListener("click", (e) => {
-      e.preventDefault();
-      game.init();
-    });
+  closeModal.addEventListener("click", () => {
+    closeMdl();
+  });
 
-    //close modal
-    function closeMdl() {
-      modalForm.classList.add("hidden");
-      overlay.classList.add("hidden");
-    }
+  // play button should return players and their markers
+  play.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(p1.value);
+    console.log(p2.value);
+    player1 = createPlayer(p1.value, "x");
+    player2 = createPlayer(p2.value, "o");
+    closeMdl();
+  });
 
-    //open modal
-    function openMdl() {
-      modalForm.classList.remove("hidden");
-      overlay.classList.remove("hidden");
-    }
+  //close modal
+  function closeMdl() {
+    modalForm.classList.add("hidden");
+    overlay.classList.add("hidden");
+  }
 
-    return { openMdl };
-  })();
+  //open modal
+  function openMdl() {
+    modalForm.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+  }
 
-  return { reset, fullReset };
+  return { reset, fullReset, openMdl };
 })();
 
 gameDOM.reset();
-
-const player1 = createPlayer("alex");
