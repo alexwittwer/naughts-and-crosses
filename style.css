@@ -1,0 +1,119 @@
+* {
+  font-family: "Exo 2", "Raleway", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --c1: #3f8a8c;
+  --c2: #0c5679;
+  --c3: #0b0835;
+  --c4: #e5340b;
+  --c5: #f28a0f;
+  --c6: #ffe7bd;
+  --c7: #eec989;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--c1);
+}
+
+/* --------------------- Header --------------------- */
+.title {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.naughts {
+  font-size: 4rem;
+  color: var(--c5);
+  animation: scale-in-left 1s ease-in-out 0s alternate;
+}
+
+.and {
+  font-size: 4rem;
+  color: var(--c3);
+  animation: scale-in 3s ease-in 0s alternate;
+}
+
+.crosses {
+  font-size: 4rem;
+  color: var(--c4);
+  animation: scale-in-right 1.5s ease-in-out 0s alternate;
+}
+
+
+/* --------------------- Game Container --------------------- */
+
+.game-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+    width: 480px;
+    height: 480px;
+}
+
+.grid-container div {
+    background-color: var(--c6);
+}
+
+.grid-container div:hover {
+    background-color: var(--c7);
+}
+
+/* --------------------- Animations --------------------- */
+
+@keyframes scale-in {
+  0% {
+    display: none;
+    opacity: 0%;
+  }
+
+  100% {
+    display: block;
+    opacity: 100%;
+  }
+}
+
+@keyframes scale-in-left {
+  0% {
+    display: none;
+    margin-left: -100;
+    transform: scale(2);
+    opacity: 0%;
+  }
+
+  100% {
+    margin-left: 0;
+    display: block;
+    transform: scale(1);
+    opacity: 100%;
+  }
+}
+
+@keyframes scale-in-left {
+  0% {
+    display: none;
+    margin-right: -80%;
+    transform: scale(2);
+    opacity: 0%;
+  }
+
+  100% {
+    margin-right: 100%
+    display: block;
+    transform: scale(1);
+    opacity: 100%;
+  }
+}
