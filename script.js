@@ -116,7 +116,7 @@ const gameController = (() => {
   //checks if all elements have a marker, then stops the game
   function checkTie() {
     // ends prematurely if theres win conditions
-    if (checkWin) {
+    if (checkWin()) {
       return;
     }
     let setFlag = true;
