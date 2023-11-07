@@ -68,7 +68,6 @@ const gameController = (() => {
         board[x][1] === marker &&
         board[x][2] === marker
       ) {
-        alert(`${marker} wins`);
         return true;
       }
     }
@@ -80,7 +79,6 @@ const gameController = (() => {
         board[1][y] === marker &&
         board[2][y] === marker
       ) {
-        alert(`${marker} wins`);
         return true;
       }
     }
@@ -91,7 +89,6 @@ const gameController = (() => {
       board[1][1] === marker &&
       board[2][2] === marker
     ) {
-      alert(`${marker} wins`);
       return true;
     }
 
@@ -100,7 +97,6 @@ const gameController = (() => {
       board[1][1] === marker &&
       board[2][0] === marker
     ) {
-      alert(`${marker} wins`);
       return true;
     }
 
@@ -110,18 +106,11 @@ const gameController = (() => {
 
   // simplifies checkWin for both markers.
   function checkWin() {
-    initCheckWin("x");
-    initCheckWin("o");
-  }
-
-  function checkValid(coords) {
-    let [x, y] = coords;
-    let board = gameBoard.displayBoard();
-
-    if (board[x][y]) {
-      return false;
+    if (initCheckWin("x")) {
+      screenController.displayWinner(gameController.currentPlayer.name);
+    } else if (initCheckWin("o")) {
+      screenController.displayWinner(gameController.currentPlayer.name);
     }
-    return true;
   }
 
   //checks if all elements have a marker, then stops the game
@@ -146,9 +135,9 @@ const gameController = (() => {
   // main game logic
   function play() {
     if (checkWin()) {
-      alert(`${currentPlayer.name} wins!`);
+      screenController.displayWinner(currentPlayer.name);
     } else if (checkTie()) {
-      alert(`Its a tie!`);
+      screenController.displayWinner("nobody!");
     } else {
       return;
     }
@@ -190,10 +179,9 @@ const screenController = (() => {
   const overlay = document.querySelector(".overlay");
   const p1 = document.querySelector("#mname1");
   const p2 = document.querySelector("#mname2");
-
-  // player variables
-  let player1;
-  let player2;
+  const winModal = document.querySelector(".winner-modal");
+  const winClose = document.querySelector(".win-close-btn");
+  const winner = document.querySelector("#winner");
 
   // New Game button handler
   newgame.addEventListener("click", (e) => {
@@ -207,8 +195,33 @@ const screenController = (() => {
     resetDOM();
   });
 
+  // win modal handling
+  winClose.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeWinner();
+  });
+
+  //close win modal
+  function closeWinner() {
+    winModal.classList.add("hidden");
+    overlay.classList.add("hidden");
+  }
+
+  //open modal
+  function openWinner() {
+    winModal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+  }
+
+  // displays winner
+  function displayWinner(name) {
+    openWinner();
+    winner.textContent = `Winner: ${name}`;
+  }
+
   // modal handling
-  closeModal.addEventListener("click", () => {
+  closeModal.addEventListener("click", (e) => {
+    e.preventDefault();
     closeMdl();
   });
 
