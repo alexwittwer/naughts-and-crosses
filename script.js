@@ -45,8 +45,8 @@ const gameController = (() => {
     const y = coords[1];
     if (!board[x][y]) {
       board[x][y] = marker;
-      switchPlayer(currentPlayer);
       play();
+      switchPlayer(currentPlayer);
       return board;
     } else {
       console.log("Error: token in place");
@@ -101,10 +101,8 @@ const gameController = (() => {
 
   // simplifies checkWin for both markers.
   function checkWin() {
-    if (initCheckWin("x")) {
-      screenController.displayWinner(gameController.currentPlayer.name);
-    } else if (initCheckWin("o")) {
-      screenController.displayWinner(gameController.currentPlayer.name);
+    if (initCheckWin("x") || initCheckWin("o")) {
+      return true;
     }
   }
 
@@ -130,7 +128,7 @@ const gameController = (() => {
   // main game logic
   function play() {
     if (checkWin()) {
-      screenController.displayWinner(currentPlayer.name);
+      screenController.displayWinner(gameController.currentPlayer.name);
     } else if (checkTie()) {
       screenController.displayWinner("nobody!");
     } else {
@@ -187,6 +185,7 @@ const screenController = (() => {
   // Reset button handler
   resetbtn.addEventListener("click", (e) => {
     gameBoard.resetBoard();
+    gameController.currentPlayer = gameController.player1;
     resetDOM();
   });
 
