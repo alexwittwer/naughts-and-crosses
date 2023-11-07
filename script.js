@@ -31,8 +31,11 @@ const gameBoard = (() => {
 // ---------- Game Logic Object ------------ //
 //
 
-const game = (() => {
+const gameController = (() => {
   const board = gameBoard.displayBoard();
+  let player1;
+  let player2;
+  let currentPlayer;
 
   // sets token based on coordinates
   // expects array
