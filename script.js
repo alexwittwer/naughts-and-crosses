@@ -136,6 +136,10 @@ const gameController = (() => {
     }
   }
 
+  function resetCurrentPlayer() {
+    gameController.currentPlayer = gameController.player1;
+  }
+
   function switchPlayer() {
     if (gameController.currentPlayer === gameController.player1) {
       gameController.currentPlayer = gameController.player2;
@@ -145,7 +149,7 @@ const gameController = (() => {
     return;
   }
 
-  return { play, setToken };
+  return { play, setToken, resetCurrentPlayer };
 })();
 
 //
@@ -185,7 +189,7 @@ const screenController = (() => {
   // Reset button handler
   resetbtn.addEventListener("click", (e) => {
     gameBoard.resetBoard();
-    gameController.currentPlayer = gameController.player1;
+    gameController.resetCurrentPlayer();
     resetDOM();
   });
 
@@ -193,6 +197,9 @@ const screenController = (() => {
   winClose.addEventListener("click", (e) => {
     e.preventDefault();
     toggleWinner();
+    gameBoard.resetBoard();
+    gameController.resetCurrentPlayer();
+    resetDOM();
   });
 
   //close win modal
@@ -219,7 +226,7 @@ const screenController = (() => {
     gameController.player1 = Player(p1.value, "x");
     gameController.player2 = Player(p2.value, "o");
     // set current player
-    gameController.currentPlayer = gameController.player1;
+    gameController.resetCurrentPlayer();
     toggleModal();
   });
 
