@@ -50,6 +50,8 @@ const gameController = (() => {
       return false;
     } else if (!board[x][y]) {
       board[x][y] = marker;
+      switchPlayer(currentPlayer);
+      play();
       return board;
     } else {
       console.log("Error: token in place");
@@ -124,6 +126,10 @@ const gameController = (() => {
 
   //checks if all elements have a marker, then stops the game
   function checkTie() {
+    // ends prematurely if theres win conditions
+    if (checkWin) {
+      return;
+    }
     let setFlag = true;
     for (let i = 0; i < 3; i++) {
       //loop for each, return false if it doesn't contain a marker
@@ -137,51 +143,34 @@ const gameController = (() => {
     return setFlag;
   }
 
-  // sets the CPU token randomly
-  function setCPUToken() {
-    const comp_x = Math.floor(Math.random() * 3);
-    const comp_y = Math.floor(Math.random() * 3);
-    comp_coords = [comp_x, comp_y];
-    console.log(comp_coords);
-
-    if (checkValid(comp_coords)) {
-      game.setToken(comp_coords, "o");
-    } else setCPUToken();
-  }
-
   // main game logic
-  function playRound(player1) {
-    const player1_marker = player1.marker;
-
-    while (!checkWin("x")) {
-      if (player1_marker === "o") {
-        setCPUToken();
-        let userinput = prompt("Enter coordinate x, y");
-        let user_coord = userinput.split(",");
-        game.setToken(user_coord, player1_marker);
-        gameDOM.reset();
-      } else {
-        let userinput = prompt("Enter coordinate x, y");
-        let user_coord = userinput.split(",");
-        game.setToken(user_coord, player1_marker);
-        setCPUToken();
-        gameDOM.reset();
-      }
-
-      if (checkTie()) {
-        alert("Its a tie!");
-        break;
-      }
+  function play() {
+    if (checkWin()) {
+      alert(`${currentPlayer.name} wins!`);
+    } else if (checkTie()) {
+      alert(`Its a tie!`);
+    } else {
+      return;
     }
   }
-  return { playRound, setToken };
+
+  function switchPlayer() {
+    if (gameController.currentPlayer === gameController.player1) {
+      gameController.currentPlayer = gameController.player2;
+    } else {
+      gameController.currentPlayer = gameController.player1;
+    }
+    return;
+  }
+
+  return { play, setToken };
 })();
 
 //
-// ---------- Player Object ------------ //
+// ---------- Player Factory ------------ //
 //
 
-function createPlayer(name, marker) {
+function Player(name, marker) {
   return { name, marker };
 }
 
