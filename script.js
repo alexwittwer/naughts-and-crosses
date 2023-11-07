@@ -204,8 +204,8 @@ const screenController = (() => {
 
   // displays winner
   function displayWinner(name) {
-    toggleWinner();
     winner.textContent = `Winner: ${name}`;
+    toggleWinner();
   }
 
   // modal handling
