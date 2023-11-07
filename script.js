@@ -284,7 +284,7 @@ const screenController = (() => {
     }
   }
 
-  return { resetDOM, fullReset, openMdl, player1, player2 };
+  return { resetDOM, fullReset, openMdl, displayWinner };
 })();
 
 screenController.resetDOM();
