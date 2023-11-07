@@ -43,12 +43,7 @@ const gameController = (() => {
     // change coords to x, y
     const x = coords[0];
     const y = coords[1];
-
-    // check for valid input
-    if (x < 0 || x > 2 || y < 0 || y > 2) {
-      alert("Error, out of bounds");
-      return false;
-    } else if (!board[x][y]) {
+    if (!board[x][y]) {
       board[x][y] = marker;
       switchPlayer(currentPlayer);
       play();
@@ -198,31 +193,25 @@ const screenController = (() => {
   // win modal handling
   winClose.addEventListener("click", (e) => {
     e.preventDefault();
-    closeWinner();
+    toggleWinner();
   });
 
   //close win modal
-  function closeWinner() {
-    winModal.classList.add("hidden");
-    overlay.classList.add("hidden");
-  }
-
-  //open modal
-  function openWinner() {
-    winModal.classList.remove("hidden");
-    overlay.classList.remove("hidden");
+  function toggleWinner() {
+    winModal.classList.toggle("hidden");
+    overlay.classList.toggle("hidden");
   }
 
   // displays winner
   function displayWinner(name) {
-    openWinner();
+    toggleWinner();
     winner.textContent = `Winner: ${name}`;
   }
 
   // modal handling
   closeModal.addEventListener("click", (e) => {
     e.preventDefault();
-    closeMdl();
+    toggleModal();
   });
 
   // play button should return players and their markers
@@ -232,19 +221,13 @@ const screenController = (() => {
     gameController.player2 = Player(p2.value, "o");
     // set current player
     gameController.currentPlayer = gameController.player1;
-    closeMdl();
+    toggleModal();
   });
 
   //close modal
-  function closeMdl() {
-    modalForm.classList.add("hidden");
-    overlay.classList.add("hidden");
-  }
-
-  //open modal
-  function openMdl() {
-    modalForm.classList.remove("hidden");
-    overlay.classList.remove("hidden");
+  function toggleModal() {
+    modalForm.classList.toggle("hidden");
+    overlay.classList.toggle("hidden");
   }
 
   // clears grid from grid-container
@@ -265,7 +248,7 @@ const screenController = (() => {
   function fullReset() {
     resetDOM();
     gameBoard.resetBoard();
-    openMdl();
+    toggleModal();
   }
 
   // updates grid with current board
@@ -297,7 +280,7 @@ const screenController = (() => {
     }
   }
 
-  return { resetDOM, fullReset, openMdl, displayWinner };
+  return { resetDOM, displayWinner };
 })();
 
 screenController.resetDOM();
