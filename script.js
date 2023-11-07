@@ -178,7 +178,7 @@ function Player(name, marker) {
 // ---------- DOM Handling Object ------------ //
 //
 
-const gameDOM = (() => {
+const screenController = (() => {
   // Element pointers
   const resetbtn = document.querySelector(".reset-btn");
   const newgame = document.querySelector(".new-game-btn");
@@ -191,6 +191,10 @@ const gameDOM = (() => {
   const p1 = document.querySelector("#mname1");
   const p2 = document.querySelector("#mname2");
 
+  // player variables
+  let player1;
+  let player2;
+
   // New Game button handler
   newgame.addEventListener("click", (e) => {
     gameBoard.resetBoard();
@@ -200,62 +204,10 @@ const gameDOM = (() => {
   // Reset button handler
   resetbtn.addEventListener("click", (e) => {
     gameBoard.resetBoard();
-    reset();
+    resetDOM();
   });
 
-  // clears grid from grid-container
-  function clearBoard() {
-    const grid = document.querySelector(".grid-container");
-    while (grid.firstChild) {
-      grid.removeChild(grid.firstChild);
-    }
-  }
-
-  // updates grid with current board
-  function populateBoard() {
-    const board = gameBoard.displayBoard();
-
-    for (let i = 0; i < 3; i++) {
-      const grid = document.querySelector(".grid-container");
-      for (let j = 0; j < 3; j++) {
-        const grid_element = document.createElement("div");
-        grid_element.classList.add("grid-item");
-        grid_element.addEventListener("click", (e) => {
-          // adds a unique event listener to each grid item
-          const coords = [i, j];
-          game.setToken(coords, player1.marker);
-          reset();
-        });
-
-        // checks to see if game logic board has a value, then places an icon in that grid item
-        if (board[i][j] === "x") {
-          grid_element.innerHTML = '<img src="icons/cancel-svgrepo-com.svg">';
-        } else if (board[i][j] === "o") {
-          grid_element.innerHTML = '<img src="icons/circle-svgrepo-com.svg">';
-        } else {
-          grid_element.textContent = board[i][j];
-        }
-        grid.appendChild(grid_element);
-      }
-    }
-  }
-
-  // quick reset function
-  function reset() {
-    clearBoard();
-    populateBoard();
-  }
-
-  // full reset and opens modal for new game initialization
-  function fullReset() {
-    reset();
-    openMdl();
-  }
-
   // modal handling
-  let player1;
-  let player2;
-
   closeModal.addEventListener("click", () => {
     closeMdl();
   });
@@ -263,10 +215,10 @@ const gameDOM = (() => {
   // play button should return players and their markers
   play.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(p1.value);
-    console.log(p2.value);
-    player1 = createPlayer(p1.value, "x");
-    player2 = createPlayer(p2.value, "o");
+    gameController.player1 = Player(p1.value, "x");
+    gameController.player2 = Player(p2.value, "o");
+    // set current player
+    gameController.currentPlayer = gameController.player1;
     closeMdl();
   });
 
@@ -282,7 +234,57 @@ const gameDOM = (() => {
     overlay.classList.remove("hidden");
   }
 
-  return { reset, fullReset, openMdl };
+  // clears grid from grid-container
+  function clearBoard() {
+    const grid = document.querySelector(".grid-container");
+    while (grid.firstChild) {
+      grid.removeChild(grid.firstChild);
+    }
+  }
+
+  // quick reset function
+  function resetDOM() {
+    clearBoard();
+    populateBoard();
+  }
+
+  // full reset and opens modal for new game initialization
+  function fullReset() {
+    resetDOM();
+    gameBoard.resetBoard();
+    openMdl();
+  }
+
+  // updates grid with current board
+  function populateBoard() {
+    const board = gameBoard.displayBoard();
+
+    for (let i = 0; i < 3; i++) {
+      const grid = document.querySelector(".grid-container");
+      for (let j = 0; j < 3; j++) {
+        const grid_element = document.createElement("div");
+        grid_element.classList.add("grid-item");
+        grid_element.addEventListener("click", (e) => {
+          // adds a unique event listener to each grid item
+          const coords = [i, j];
+          gameController.setToken(coords, gameController.currentPlayer.marker);
+          resetDOM();
+        });
+
+        // checks to see if game logic board has a value, then places an icon in that grid item
+        if (board[i][j] === "x") {
+          grid_element.innerHTML = '<img src="icons/cancel-svgrepo-com.svg">';
+        } else if (board[i][j] === "o") {
+          grid_element.innerHTML = '<img src="icons/circle-svgrepo-com.svg">';
+        } else {
+          grid_element.textContent = board[i][j];
+        }
+        grid.appendChild(grid_element);
+      }
+    }
+  }
+
+  return { resetDOM, fullReset, openMdl, player1, player2 };
 })();
 
-gameDOM.reset();
+screenController.resetDOM();
